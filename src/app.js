@@ -3,7 +3,7 @@ import express from "express";
 
 //Create Express Application >> express()
 const app = express();
-const PORT = 4000;
+const PORT = 8000;
 //const handleListening = () => console.log("Server listenting on port ");
 
 
@@ -14,7 +14,7 @@ const PORT = 4000;
 
 //express로부터 받은 request 와 response object
 app.get("/",(req, res) => {
-    console.log(req);
+    console.log("hi");
     return res.end;
 });
 
