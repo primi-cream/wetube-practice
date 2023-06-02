@@ -1,3 +1,4 @@
+import "./db";
 import express from "express"
 import globalRouter from "./routers/globalRouter";
 import usersRouter from "./routers/usersRouter";
@@ -15,5 +16,5 @@ app.use("/", globalRouter);
 app.use("/users", usersRouter);
 app.use("/videos", videosRouter);
 
-app.listen(PORT,() => {console.log(`Start Server http://localhost:${PORT}`)});
+app.listen(process.env.PORT,() => {console.log(`Start Server http://localhost:${process.env.PORT}`)});
 
