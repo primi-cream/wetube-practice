@@ -1,11 +1,10 @@
-import "./db";
-import express from "express"
+import express from "express";
 import globalRouter from "./routers/globalRouter";
 import usersRouter from "./routers/usersRouter";
 import videosRouter from "./routers/videosRouter";
 
 const app = express();
-const PORT = 8000;
+// const PORT = 8000;
 
 //PUG View Engine 적용
 app.set("view engine", "pug");
@@ -16,5 +15,5 @@ app.use("/", globalRouter);
 app.use("/users", usersRouter);
 app.use("/videos", videosRouter);
 
-app.listen(process.env.PORT,() => {console.log(`Start Server http://localhost:${process.env.PORT}`)});
+export default app;
 

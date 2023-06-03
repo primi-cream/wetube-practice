@@ -1,6 +1,10 @@
 import mongoose from "mongoose"
-
-mongoose.connect("mongodb://127.0.0.1:27017/wetube-practice");
+//mongodb://host.docker.internal:27017/wetube-practice
+mongoose.connect("mongodb://mongodb:27017/wetube-practice",
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
