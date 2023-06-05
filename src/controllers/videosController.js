@@ -2,8 +2,8 @@
 import Video from "../models/Video";
 
 export const home = async (req, res) => {
-    const videos = await Video.find({}).sort({createdAt : desc});
-    // console.log(videos[2].createdAt+"sss");
+    const videos = await Video.find({}).sort({createdAt: "desc"});
+    // console.log(videos[0].createdAt+"sss");
     return res.render("home",{pageTitle : "Home", videos});
 }
 
@@ -47,6 +47,7 @@ export const getUpload = (req, res) => {
 export const postUpload = async (req, res) => {
     const {title, description, hashtags} = req.body;
     try{
+        console.log(title);
         await Video.create({
             title,
             description,
@@ -80,3 +81,6 @@ export const search = async (req, res) =>{
     }
     return res.render("search", {pageTitle: "Search", videos});
 }
+
+
+
