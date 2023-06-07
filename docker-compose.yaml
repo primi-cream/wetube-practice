@@ -12,6 +12,8 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
+    env_file:
+      - ./.env  
     environment:
       - TZ=Asia/Seoul      
     depends_on:

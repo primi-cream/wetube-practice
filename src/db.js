@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 //mongodb://host.docker.internal:27017/wetube-practice
-mongoose.connect("mongodb://mongodb:27017/wetube-practice");
+mongoose.connect(process.env.DB_URL);
 
 const db = mongoose.connection;
 
