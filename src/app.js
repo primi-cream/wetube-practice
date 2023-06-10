@@ -1,9 +1,11 @@
 import express from "express";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import usersRouter from "./routers/usersRouter";
 import videosRouter from "./routers/videosRouter";
+import apiRouter from "./routers/apiRouter";
 import {localsMiddleware} from "./middlewares";
 
 const app = express();
@@ -23,12 +25,14 @@ app.use(
     })
 );
 
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/users", usersRouter);
 app.use("/videos", videosRouter);
+app.use("/api", apiRouter);
 
 export default app;
 
