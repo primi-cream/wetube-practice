@@ -1,14 +1,25 @@
 import User from "../models/User";
+import Video from "../models/Video";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 
-export const see = (req, res) => {
-    return res.send("see");
-}
+export const see = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id).populate("videos");
+    if(!user) {
+        return res.status(404).render("404", {pageTitle: "User not found."});
+    }
+    const vidoes = await Video.find({owner: user._id});
+    return res.render("users/profile", {
+        pageTitle: user.name,
+        user,
+        videos,
+    });
+};
 
 export const getEdit = (req, res) => {
     return res.render("edit-profile", {pageTitle: "Edit Profile"});
-}
+};
 
 export const postEdit = async (req, res) => {
     const {
