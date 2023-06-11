@@ -17,7 +17,7 @@ var protectorMiddleware = function protectorMiddleware(req, res, next) {
   if (req.session.loggedIn) {
     return next();
   } else {
-    req.flash("error", "Log in first.");
+    // req.flash("error", "Log in first.");
     return res.redirect("/login");
   }
 };
@@ -26,7 +26,7 @@ var publicOnlyMiddleware = function publicOnlyMiddleware(req, res, next) {
   if (!req.session.loggedIn) {
     return next();
   } else {
-    req.flash("error", "Not authorized");
+    // req.flash("error", "Not authorized");
     return res.redirect("/");
   }
 };

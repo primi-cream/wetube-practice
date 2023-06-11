@@ -341,13 +341,13 @@ var finishGithubLogin = /*#__PURE__*/function () {
 exports.finishGithubLogin = finishGithubLogin;
 var logout = function logout(req, res) {
   req.session.destroy();
-  req.flash("info", "Bye!");
+  // req.flash("info", "Bye!");
   return res.redirect("/");
 };
 exports.logout = logout;
 var getChangePassword = function getChangePassword(req, res) {
   if (req.session.user.socialOnly === true) {
-    req.flash("error", "Can't change password.");
+    // req.flash("error", "Can't change password.");
     return res.redirect("/");
   }
   return res.render("users/change-password", {
@@ -392,9 +392,8 @@ var postChangePassword = /*#__PURE__*/function () {
           _context6.next = 14;
           return user.save();
         case 14:
-          req.flash("info", "Password updated");
           return _context6.abrupt("return", res.redirect("/users/logout"));
-        case 16:
+        case 15:
         case "end":
           return _context6.stop();
       }

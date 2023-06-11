@@ -4,7 +4,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.watch = exports.search = exports.registerView = exports.postUpload = exports.postEdit = exports.home = exports.getUpload = exports.getEdit = exports.deleteVideo = exports.createComment = void 0;
+exports.watch = exports.search = exports.registerView = exports.postUpload = exports.postEdit = exports.home = exports.getUpload = exports.getEdit = exports.deleteVideo = exports.deleteComment = exports.createComment = void 0;
 var _Video = _interopRequireDefault(require("../models/Video"));
 var _User = _interopRequireDefault(require("../models/User"));
 var _Comment = _interopRequireDefault(require("../models/Comment"));
@@ -95,17 +95,16 @@ var getEdit = /*#__PURE__*/function () {
           }));
         case 7:
           if (!(String(video.owner) !== String(_id))) {
-            _context3.next = 10;
+            _context3.next = 9;
             break;
           }
-          req.flash("error", "Not authorized");
           return _context3.abrupt("return", res.status(403).redirect("/"));
-        case 10:
+        case 9:
           return _context3.abrupt("return", res.render("edit", {
             pageTitle: "Edit: ".concat(video.title),
             video: video
           }));
-        case 11:
+        case 10:
         case "end":
           return _context3.stop();
       }
@@ -138,22 +137,20 @@ var postEdit = /*#__PURE__*/function () {
           }));
         case 8:
           if (!(String(video.owner) !== String(_id))) {
-            _context4.next = 11;
+            _context4.next = 10;
             break;
           }
-          req.flash("error", "You are not the the owner of the video.");
           return _context4.abrupt("return", res.status(403).redirect("/"));
-        case 11:
-          _context4.next = 13;
+        case 10:
+          _context4.next = 12;
           return _Video["default"].findByIdAndUpdate(id, {
             title: title,
             description: description,
             hashtags: _Video["default"].formatHashtags(hashtags)
           });
-        case 13:
-          req.flash("success", "Changes saved.");
+        case 12:
           return _context4.abrupt("return", res.redirect("/videos/".concat(id)));
-        case 15:
+        case 13:
         case "end":
           return _context4.stop();
       }
@@ -369,3 +366,42 @@ var createComment = /*#__PURE__*/function () {
   };
 }();
 exports.createComment = createComment;
+var deleteComment = /*#__PURE__*/function () {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
+    var user, _id, id, video, comments;
+    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+      while (1) switch (_context10.prev = _context10.next) {
+        case 0:
+          user = req.session.user, _id = req.body._id, id = req.params.id;
+          _context10.next = 3;
+          return _Video["default"].findById(id);
+        case 3:
+          video = _context10.sent;
+          if (video) {
+            _context10.next = 6;
+            break;
+          }
+          return _context10.abrupt("return", res.sendStatus(404));
+        case 6:
+          _context10.next = 8;
+          return _Comment["default"].filter(function (id) {
+            return id !== _id;
+          });
+        case 8:
+          comments = _context10.sent;
+          video.save();
+          _context10.next = 12;
+          return _Comment["default"].findByIdAndDelete(_id);
+        case 12:
+          return _context10.abrupt("return", res.sendStatus(200));
+        case 13:
+        case "end":
+          return _context10.stop();
+      }
+    }, _callee10);
+  }));
+  return function deleteComment(_x19, _x20) {
+    return _ref10.apply(this, arguments);
+  };
+}();
+exports.deleteComment = deleteComment;

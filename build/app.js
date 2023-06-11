@@ -32,7 +32,8 @@ app.use((0, _expressSession["default"])({
     mongoUrl: process.env.DB_URL
   })
 }));
-app.use((0, _expressFlash["default"])());
+
+// app.use(flash());
 app.use(_middlewares.localsMiddleware);
 app.use("/uploads", _express["default"]["static"]("uploads"));
 app.use("/static", _express["default"]["static"]("assets"));
