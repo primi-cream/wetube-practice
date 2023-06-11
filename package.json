@@ -6,7 +6,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:server": "nodemon --exec babel-node src/init.js",
     "dev:assets": "webpack",
-    "build:server": "babel src/init.js -d build"
+    "start":"node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=development -w"
   },
   "repository": {
     "type": "git",

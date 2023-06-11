@@ -1,10 +1,10 @@
 services:
-  mongodb:
-    image: "mongo"
-    volumes:
-      - data:/data/db
-    environment:
-      - TZ=Asia/Seoul  
+  # mongodb:
+  #   image: "mongo"
+  #   volumes:
+  #     - data:/data/db
+  #   environment:
+  #     - TZ=Asia/Seoul  
   wetube-practice:
     build: ./
     ports:
@@ -16,7 +16,7 @@ services:
       - ./.env  
     environment:
       - TZ=Asia/Seoul      
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
 volumes:
   data:

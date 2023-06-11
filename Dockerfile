@@ -12,4 +12,4 @@ ENV PORT 8000
 
 EXPOSE $PORT
 
-CMD ["npm","run","dev:server"]
+CMD ["npm","run","start"]
