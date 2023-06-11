@@ -368,11 +368,11 @@ var createComment = /*#__PURE__*/function () {
 exports.createComment = createComment;
 var deleteComment = /*#__PURE__*/function () {
   var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
-    var user, _id, id, video, comments;
+    var user, commentId, id, video, newComments;
     return _regeneratorRuntime().wrap(function _callee10$(_context10) {
       while (1) switch (_context10.prev = _context10.next) {
         case 0:
-          user = req.session.user, _id = req.body._id, id = req.params.id;
+          user = req.session.user, commentId = req.body.commentId, id = req.params.id;
           _context10.next = 3;
           return _Video["default"].findById(id);
         case 3:
@@ -383,18 +383,16 @@ var deleteComment = /*#__PURE__*/function () {
           }
           return _context10.abrupt("return", res.sendStatus(404));
         case 6:
-          _context10.next = 8;
-          return _Comment["default"].filter(function (id) {
-            return id !== _id;
+          newComments = video.comments.filter(function (id) {
+            return id !== commentId;
           });
-        case 8:
-          comments = _context10.sent;
+          video.comments = newComments;
           video.save();
-          _context10.next = 12;
-          return _Comment["default"].findByIdAndDelete(_id);
-        case 12:
+          _context10.next = 11;
+          return _Comment["default"].findByIdAndDelete(commentId);
+        case 11:
           return _context10.abrupt("return", res.sendStatus(200));
-        case 13:
+        case 12:
         case "end":
           return _context10.stop();
       }

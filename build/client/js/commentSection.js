@@ -6,6 +6,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var videoContainer = document.getElementById("videoContainer");
 var form = document.getElementById("commentForm");
+var videoComments = document.querySelector(".video__comments ul");
 var deleteBtn = document.querySelectorAll(".delete__btn");
 var addComment = function addComment(text, id) {
   var videoComments = document.querySelector(".video__comments ul");
@@ -17,11 +18,15 @@ var addComment = function addComment(text, id) {
   var span = document.createElement("span");
   span.innerText = " ".concat(text);
   var span2 = document.createElement("span");
-  span2.className = "delete__btn";
+  span2.className = "delete-btn";
   span2.innerText = "❌";
   newComment.appendChild(icon);
   newComment.appendChild(span);
+  newComment.appendChild(span2);
   videoComments.prepend(newComment);
+  deleteBtn.forEach(function (btn) {
+    return btn.addEventListener("click", deleteComment);
+  });
 };
 var handleSubmit = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
@@ -81,21 +86,23 @@ var deleteComment = /*#__PURE__*/function () {
         case 0:
           event.preventDefault();
           comment = event.target.parentElement;
-          comment.remove();
           id = comment.dataset.id;
           videoId = videoContainer.dataset.id;
-          _context2.next = 7;
+          _context2.next = 6;
           return fetch("/api/videos/".concat(videoId, "/comment/delete"), {
-            method: "POST",
+            method: "DELETE",
             headers: {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              id: id
+              commentId: id
             })
           });
-        case 7:
+        case 6:
           response = _context2.sent;
+          if (response.status === 200) {
+            comment.remove();
+          }
         case 8:
         case "end":
           return _context2.stop();

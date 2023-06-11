@@ -137,7 +137,6 @@ export const createComment = async (req, res) => {
       body: { text },
       params: { id },
     } = req;
-    
     const video = await Video.findById(id);
     
     if (!video) {
@@ -155,23 +154,24 @@ export const createComment = async (req, res) => {
     return res.status(201).json({ newCommentId: comment._id });
 };
 
+
 export const deleteComment = async (req, res) => {
     const {
         session: { user },
-        body: { _id },
+        body: { commentId },
         params: { id },
     } = req;
-
     const video = await Video.findById(id);
     
     if (!video) {
         return res.sendStatus(404);
     }
 
-    const comments = await Comment.filter((id) => id !== _id);
+    const newComments = video.comments.filter((id) => id !== commentId);
+    video.comments = newComments;
     video.save();
 
-    await Comment.findByIdAndDelete(_id);
+    await Comment.findByIdAndDelete(commentId);
 
     return res.sendStatus(200);
 };
