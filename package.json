@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:server": "nodemon --exec babel-node src/init.js",
-    "dev:assets": "webpack"
+    "dev:assets": "webpack",
+    "build:server": "babel src/init.js -d build"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,8 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
+    "@babel/cli": "^7.22.5",
+    "@babel/core": "^7.22.5",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.21.5",
     "babel-loader": "^9.1.2",
